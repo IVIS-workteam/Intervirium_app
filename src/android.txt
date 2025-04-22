@@ -1,0 +1,4 @@
+title=intervirium1
+author=dmorty
+orientation=portrait
+requirements=python3,kivy==2.1.0,requests
