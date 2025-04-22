@@ -1,0 +1,9 @@
+Темы:
+1) Junior Python
+2) Junior Golang
+3) Junior C
+4) Junior Java
+5) Junior JS
+6) Junior PHP
+7) Junior QA
+8) Junior Data Analyst
