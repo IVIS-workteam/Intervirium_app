@@ -1,5 +1,6 @@
 #:import utils kivy.utils
 #:import dp kivy.metrics.dp
+#:kivy 2.0.0
 
 <FixedRoot@FloatLayout>:
     size_hint: None, None
@@ -55,7 +56,7 @@
                             size: self.size
                             radius: [15]
                     Label:
-                        text: f'{root.questions_completed}/800'
+                        text: f'{root.questions_completed}/{root.total_questions}'
                         font_size: dp(24)
                         color: utils.get_color_from_hex('#FF7F50')
                         bold: True
@@ -76,7 +77,7 @@
                             size: self.size
                             radius: [15]
                     Label:
-                        text: f'{root.topics_completed}/14'
+                        text: f'{root.topics_completed}/{root.total_topics}'
                         font_size: dp(24)
                         color: utils.get_color_from_hex('#FF7F50')
                         bold: True
@@ -247,6 +248,26 @@
                 size_hint_y: None
                 height: dp(40)
                 padding: dp(8), 0
+                BoxLayout:
+                    orientation: 'vertical'
+                    size_hint: None, None
+                    width: dp(24)
+                    height: self.parent.height # Высота равна высоте родительского BoxLayout (dp(40))
+                    Button:
+                        text: '<-'
+                        size_hint: 1, None # Растянуть по горизонтали, фиксированная высота
+                        height: dp(24) # Фиксированная высота кнопки
+                        background_color: 0, 0, 0, 0
+                        color: 0.2, 0.2, 0.2, 1
+                        font_size: dp(18)
+                        bold: True
+                        on_press: root.manager.current = 'main'
+                    Widget:
+                        size_hint_y: None
+                        height: dp(10) # Этот виджет будет сдвигать кнопку вверх. Измените это значение для точной настройки.
+                Widget:
+                    size_hint_x: 0.1
+                    size_hint_y: None
                 Label:
                     text: root.title
                     color: 1, 0.5, 0.3, 1
@@ -255,6 +276,14 @@
                     halign: 'left'
                     valign: 'middle'
                     text_size: self.width, None
+                Label:
+                    text: root.format_timer(root.time_left)
+                    font_size: dp(16)
+                    color: (1, 0, 0, 1) if root.time_left <= 60 else (0.2, 0.2, 0.2, 1) # Red when less than 60 seconds
+                    halign: 'right'
+                    valign: 'middle'
+                    text_size: self.width, None
+                    opacity: 1 if not root.training_mode else 0
                 Label:
                     text: f'{root.current_question+1}/{root.total_questions}'
                     color: 0.2, 0.2, 0.2, 1
