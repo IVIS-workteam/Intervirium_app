@@ -1,0 +1,733 @@
+#:import utils kivy.utils
+#:import dp kivy.metrics.dp
+
+<FixedRoot@FloatLayout>:
+    size_hint: None, None
+    size: 1280, 720
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<MainScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.95, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: 480, 700
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: dp(20)
+            spacing: dp(20)
+            canvas.before:
+                Color:
+                    rgba: 1, 0.97, 0.96, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            Label:
+                text: 'Intervirium'
+                font_size: dp(32)
+                bold: True
+                size_hint_y: None
+                height: dp(50)
+                color: utils.get_color_from_hex('#FF7F50')
+            BoxLayout:
+                size_hint_y: None
+                height: dp(100)
+                spacing: dp(20)
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: dp(15)
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#FFF5F5')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+                    Label:
+                        text: f'{root.questions_completed}/800'
+                        font_size: dp(24)
+                        color: utils.get_color_from_hex('#FF7F50')
+                        bold: True
+                        size_hint_y: None
+                        height: dp(30)
+                    Label:
+                        text: 'Вопросы'
+                        font_size: dp(16)
+                        color: utils.get_color_from_hex('#B0B0B0')
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: dp(15)
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#FFF5F5')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+                    Label:
+                        text: f'{root.topics_completed}/14'
+                        font_size: dp(24)
+                        color: utils.get_color_from_hex('#FF7F50')
+                        bold: True
+                        size_hint_y: None
+                        height: dp(30)
+                    Label:
+                        text: 'Темы'
+                        font_size: dp(16)
+                        color: utils.get_color_from_hex('#B0B0B0')
+            Button:
+                text: 'Начать интервью'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: 1, 1, 1, 1
+                font_size: dp(18)
+                on_press:
+                    root.manager.get_screen('topics').interview_mode = True
+                    root.manager.current = 'topics'
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+            Button:
+                text: 'Тренировка'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#000000')
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+                on_press: root.manager.current = 'topics'
+            Button:
+                text: 'Мои результаты'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#000000')
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+                on_press: root.manager.current = 'results'
+            Button:
+                text: 'Настройки'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#000000')
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+                on_press: root.manager.current = 'settings'
+
+<TopicsScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.95, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: 480, 700
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: dp(20)
+            spacing: dp(20)
+            canvas.before:
+                Color:
+                    rgba: 1, 0.97, 0.96, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            Label:
+                text: 'Список тем'
+                font_size: dp(32)
+                bold: True
+                size_hint_y: None
+                height: dp(50)
+                color: utils.get_color_from_hex('#FF7F50')
+                text_size: self.width, None
+                halign: 'center'
+            ScrollView:
+                do_scroll_x: False
+                BoxLayout:
+                    id: topics_layout
+                    orientation: 'vertical'
+                    spacing: dp(15)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: dp(0), dp(0), dp(0), dp(20)
+            Button:
+                text: 'Назад'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#FF7F50')
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                on_press: root.manager.current = 'main'
+
+<QuestionsScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.95, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: 480, 700
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: dp(24)
+            spacing: dp(16)
+            canvas.before:
+                Color:
+                    rgba: 1, 0.97, 0.96, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            BoxLayout:
+                size_hint_y: None
+                height: dp(40)
+                padding: dp(8), 0
+                Label:
+                    text: root.title
+                    color: 1, 0.5, 0.3, 1
+                    font_size: dp(18)
+                    bold: True
+                    halign: 'left'
+                    valign: 'middle'
+                    text_size: self.width, None
+                Label:
+                    text: f'{root.current_question+1}/{root.total_questions}'
+                    color: 0.2, 0.2, 0.2, 1
+                    font_size: dp(16)
+                    halign: 'right'
+                    valign: 'middle'
+                    text_size: self.width, None
+
+            ProgressBar:
+                max: root.total_questions if root.total_questions > 0 else 1
+                value: root.current_question+1
+                height: dp(6)
+                size_hint_y: None
+                background_color: 1, 0.9, 0.85, 1
+                color: 1, 0.5, 0.3, 1
+
+            Label:
+                text: root.question_text
+                font_size: dp(18)
+                bold: True
+                color: 0.1, 0.1, 0.1, 1
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                halign: 'left'
+                valign: 'top'
+
+            BoxLayout:
+                size_hint_y: None
+                height: self.minimum_height if root.show_explanation else dp(0)
+                opacity: 1 if root.show_explanation else 0
+                padding: dp(16)
+                spacing: dp(8)
+                orientation: 'vertical'
+                canvas.before:
+                    Color:
+                        rgba: (0.95, 1, 0.95, 1) if root.is_correct else (1, 0.95, 0.95, 1)
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [12]
+                Label:
+                    text: root.result_text
+                    font_size: dp(18)
+                    bold: True
+                    color: (0.1, 0.4, 0.1, 1) if root.is_correct else (0.4, 0.1, 0.1, 1)
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    halign: 'left'
+                    valign: 'top'
+                Label:
+                    text: root.explanation
+                    font_size: dp(16)
+                    color: (0.2, 0.2, 0.2, 1)
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                    text_size: self.width, None
+                    halign: 'left'
+                    valign: 'top'
+
+            ScrollView:
+                do_scroll_x: False
+                BoxLayout:
+                    id: options_container
+                    orientation: 'vertical'
+                    spacing: dp(12)
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: dp(0), dp(0), dp(0), dp(20)
+                    propagate_touch: True
+
+            BoxLayout:
+                size_hint_y: None
+                height: dp(56)
+                spacing: dp(16)
+                padding: 0, dp(8)
+                Button:
+                    text: 'Проверить' if root.button_state == 'check' else 'Далее'
+                    size_hint_x: 1
+                    background_color: (1, 0.5, 0.3, 1) if root.button_state == 'check' and root.answer_selected else (0.7, 0.7, 0.7, 1) if root.button_state == 'check' else (1, 0.5, 0.3, 1)
+                    color: 1, 1, 1, 1
+                    font_size: dp(16)
+                    bold: True
+                    on_press: root.handle_bottom_button()
+                    disabled: root.button_state == 'check' and not root.answer_selected
+                    canvas.before:
+                        Color:
+                            rgba: (1, 0.5, 0.3, 1) if root.button_state == 'next' else ((1, 0.5, 0.3, 1) if root.button_state == 'check' and root.answer_selected else (0.7, 0.7, 0.7, 1))
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+
+<ResultsScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.95, 1, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: 480, 700
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: dp(20)
+            spacing: dp(0)
+            canvas.before:
+                Color:
+                    rgba: 1, 0.97, 0.96, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            Label:
+                text: 'Мои результаты'
+                font_size: dp(32)
+                bold: True
+                size_hint_y: None
+                height: dp(50)
+                color: utils.get_color_from_hex('#FF7F50')
+            BoxLayout:
+                size_hint_y: None
+                height: dp(100)
+                spacing: dp(0)
+                BoxLayout:
+                    orientation: 'vertical'
+                    padding: dp(15)
+                    size_hint_x: 1
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#FFF5F5')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+                    Label:
+                        text: f'{root.correct_answers}/{root.total_questions}'
+                        font_size: dp(24)
+                        color: utils.get_color_from_hex('#FF7F50')
+                        bold: True
+                        size_hint_y: None
+                        height: dp(30)
+                        halign: 'center'
+                        text_size: self.width, None
+                    Label:
+                        text: 'Правильных ответов'
+                        font_size: dp(16)
+                        color: utils.get_color_from_hex('#B0B0B0')
+                        halign: 'center'
+                        text_size: self.width, None
+            Button:
+                text: 'Назад'
+                size_hint: 0.8, None
+                pos_hint: {'center_x': 0.5}
+                height: dp(50)
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#FF7F50')
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                on_press: root.manager.current = 'main'
+
+<TopicCard>:
+    size_hint_y: None
+    height: dp(160)
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [16]
+        Color:
+            rgba: 1, 0.5, 0.3, 0.15
+        Line:
+            width: 1.5
+            rounded_rectangle: (*self.pos, *self.size, 16)
+    BoxLayout:
+        orientation: 'vertical'
+        padding: dp(18)
+        spacing: dp(8)
+        Label:
+            text: root.title
+            font_size: dp(20)
+            bold: True
+            color: 0.1, 0.1, 0.1, 1
+            size_hint_y: None
+            height: dp(28)
+        Label:
+            text: f"{root.questions_count} вопросов • {root.progress}% завершено"
+            font_size: dp(14)
+            color: 0.5, 0.5, 0.5, 1
+            size_hint_y: None
+            height: dp(20)
+        BoxLayout:
+            size_hint_y: None
+            height: dp(8)
+            spacing: 0
+            canvas:
+                Color:
+                    rgba: 1, 0.9, 0.85, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [4]
+                Color:
+                    rgba: 1, 0.5, 0.3, 1
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.width * (float(root.progress or 0) / 100), self.height
+                    radius: [4]
+        Widget:
+            size_hint_y: None
+            height: dp(4)
+        Button:
+            text: 'Разблокировать за 299 ₽' if root.locked else 'Начать'
+            size_hint_y: None
+            height: dp(44)
+            font_size: dp(16)
+            bold: True
+            background_normal: ''
+            background_color: (1, 0.7, 0.3, 1) if root.locked else (1, 0.5, 0.3, 1)
+            color: (0.5, 0.3, 0, 1) if root.locked else (1, 1, 1, 1)
+            canvas.before:
+                Color:
+                    rgba: (1, 0.9, 0.6, 1) if root.locked else (1, 0.5, 0.3, 1)
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [12]
+            on_press: root.on_button_press(self)
+
+<AnswerButton>:
+    size_hint_x: 1
+    height: dp(48)
+    background_normal: ''
+    background_down: ''
+    border: 0, 0, 0, 0
+    background_color: 0, 0, 0, 0
+    color: 0.2, 0.2, 0.2, 1
+    font_size: dp(16)
+    text_size: self.width, None
+    halign: 'left'
+    valign: 'middle'
+    padding: dp(15), 0
+    canvas.before:
+        Color:
+            rgba: 1, 1, 1, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [dp(10)]
+        Color:
+            rgba: 0.85, 0.85, 0.85, 1
+        Line:
+            width: dp(1.5)
+            rounded_rectangle: (*self.pos, *self.size, dp(10))
+
+<SettingsScreen>:
+    canvas.before:
+        Color:
+            rgba: 0.9, 0.95, 1, 1  # Голубой фон
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    FloatLayout:
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: None, None
+            size: 480, 800  # Увеличиваем высоту для дополнительного пространства
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            padding: dp(30)
+            spacing: dp(15)
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Белый фон окна
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [20]
+            # Заголовок
+            Label:
+                text: 'Настройки'
+                font_size: dp(32)
+                bold: True
+                size_hint_y: None
+                height: dp(50)
+                color: utils.get_color_from_hex('#FF7F50')
+                text_size: self.width, None
+                halign: 'center'
+                valign: 'middle'
+            # Увеличиваем отступ сверху
+            Widget:
+                size_hint_y: None
+                height: dp(40)  # Увеличиваем отступ до 40 dp
+            # Аватарка внутри контейнера
+            Widget:
+                size_hint: None, None
+                size: dp(60), dp(60)
+                pos_hint: {'center_x': 0.5}
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Ellipse:
+                        pos: self.pos
+                        size: self.size
+            # Имя пользователя
+            Label:
+                text: 'Гость'
+                font_size: dp(18)
+                color: 0.2, 0.2, 0.2, 1
+                size_hint_y: None
+                height: dp(30)
+                text_size: self.width, None
+                halign: 'center'
+                valign: 'middle'
+            # Кнопка "Войти / Регистрация"
+            Button:
+                text: 'Войти / Регистрация'
+                size_hint: 0.8, None
+                height: dp(50)
+                pos_hint: {'center_x': 0.5}
+                background_color: 0, 0, 0, 0
+                color: 1, 1, 1, 1
+                font_size: dp(18)
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+            # Разделитель
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+            # Метка "Тема оформления"
+            Label:
+                text: 'Тема оформления'
+                font_size: dp(16)
+                color: 0.2, 0.2, 0.2, 1
+                size_hint_y: None
+                height: dp(30)
+                text_size: self.width, None
+                halign: 'left'
+                valign: 'middle'
+            # Кнопки выбора темы
+            BoxLayout:
+                size_hint_y: None
+                height: dp(50)
+                spacing: dp(10)
+                Button:
+                    text: 'Светлая'
+                    size_hint_x: 1
+                    background_color: 0, 0, 0, 0
+                    color: utils.get_color_from_hex('#FF7F50')
+                    font_size: dp(16)
+                    bold: True
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#FFF5F5')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+                        Color:
+                            rgba: utils.get_color_from_hex('#FF7F50')
+                        Line:
+                            width: 1.5
+                            rounded_rectangle: (*self.pos, *self.size, 15)
+                Button:
+                    text: 'Тёмная'
+                    size_hint_x: 1
+                    background_color: 0, 0, 0, 0
+                    color: utils.get_color_from_hex('#FF7F50')
+                    font_size: dp(16)
+                    bold: True
+                    canvas.before:
+                        Color:
+                            rgba: utils.get_color_from_hex('#FFF5F5')
+                        RoundedRectangle:
+                            pos: self.pos
+                            size: self.size
+                            radius: [15]
+                        Color:
+                            rgba: utils.get_color_from_hex('#FF7F50')
+                        Line:
+                            width: 1.5
+                            rounded_rectangle: (*self.pos, *self.size, 15)
+            # Разделитель
+            Widget:
+                size_hint_y: None
+                height: dp(20)
+            # Кнопка "Сообщить об ошибке"
+            Button:
+                text: 'Сообщить об ошибке'
+                size_hint: 0.8, None
+                height: dp(50)
+                pos_hint: {'center_x': 0.5}
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#FF7F50')
+                font_size: dp(16)
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+            # Разделитель
+            Widget:
+                size_hint_y: None
+                height: dp(15)
+            # Кнопка "О приложении"
+            Button:
+                text: 'О приложении'
+                size_hint: 0.8, None
+                height: dp(50)
+                pos_hint: {'center_x': 0.5}
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#FF7F50')
+                font_size: dp(16)
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+            # Разделитель
+            Widget:
+                size_hint_y: None
+                height: dp(15)
+            # Кнопка "Назад"
+            Button:
+                text: 'Назад'
+                size_hint: 0.8, None
+                height: dp(50)
+                pos_hint: {'center_x': 0.5}
+                background_color: 0, 0, 0, 0
+                color: utils.get_color_from_hex('#FF7F50')
+                font_size: dp(16)
+                bold: True
+                canvas.before:
+                    Color:
+                        rgba: utils.get_color_from_hex('#FFF5F5')
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [15]
+                    Color:
+                        rgba: utils.get_color_from_hex('#FF7F50')
+                    Line:
+                        width: 1.5
+                        rounded_rectangle: (*self.pos, *self.size, 15)
+                on_press: root.manager.current = 'main'
